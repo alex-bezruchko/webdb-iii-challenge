@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('cohorts', table => {
       table.increments()
-      table.text('name').notNullable().uniqute()
+      table.text('name').notNullable().unique()
   })
 };
 
