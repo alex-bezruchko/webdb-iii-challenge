@@ -1,5 +1,5 @@
 const express = require('express');
-const cohortsDB = require('../data/helpers/cohortsDB');
+const cohortsDB = require('../data/helpers/cohortsDb');
 
 const router = express.Router();
 
