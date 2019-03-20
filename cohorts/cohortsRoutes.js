@@ -39,6 +39,23 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.get('/:id/students', async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    try {
+        const students = await cohortsDB.getCohortStudents(id);
+        if (students) {
+            res.status(200).json(students);
+        }
+        else {
+            res.status(404).json('This id is not available.')
+        }
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+})
+
 router.post('/', async (req, res) => {
     const newCohort = req.body;
     try {
