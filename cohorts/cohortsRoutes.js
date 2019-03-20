@@ -24,7 +24,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(id);
     try {
         const cohort = await cohortsDB.getById(id);
         
@@ -32,7 +31,24 @@ router.get('/:id', async (req, res) => {
             res.status(200).json(cohort)
         }
         else {
-            res.status(404).json('There are not cohorts available.')
+            res.status(404).json('This is is not available.')
+        }
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+})
+
+router.post('/', async (req, res) => {
+    const user = req.body;
+    try {
+        const cohort = await cohortsDB.insert(user);
+        
+        if (cohort) {
+            res.status(201).json(cohort)
+        }
+        else {
+            res.status(404).json('Name is required.')
         }
     }
     catch (e) {
