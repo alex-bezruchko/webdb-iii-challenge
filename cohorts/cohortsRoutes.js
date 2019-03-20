@@ -40,15 +40,33 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const user = req.body;
+    const newCohort = req.body;
     try {
-        const cohort = await cohortsDB.insert(user);
+        const cohort = await cohortsDB.insert(newCohort);
         
         if (cohort) {
             res.status(201).json(cohort)
         }
         else {
             res.status(404).json('Name is required.')
+        }
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const updateCohort = req.body;
+    try {
+        const updated = await cohortsDB.update(id, updateCohort);
+        
+        if (updated) {
+            res.status(201).json('Cohort was successfully updated.')
+        }
+        else {
+            res.status(404).json('This id is not available.')
         }
     }
     catch (e) {
