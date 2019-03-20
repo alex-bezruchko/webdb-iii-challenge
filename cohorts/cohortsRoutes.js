@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
             res.status(200).json(cohort)
         }
         else {
-            res.status(404).json('This is is not available.')
+            res.status(404).json('This id is not available.')
         }
     }
     catch (e) {
@@ -64,6 +64,23 @@ router.put('/:id', async (req, res) => {
         
         if (updated) {
             res.status(201).json('Cohort was successfully updated.')
+        }
+        else {
+            res.status(404).json('This id is not available.')
+        }
+    }
+    catch (e) {
+        res.status(500).json(e);
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const deleted = await cohortsDB.remove(id);
+        
+        if (deleted) {
+            res.status(201).json('Cohort was successfully deleted.')
         }
         else {
             res.status(404).json('This id is not available.')
